@@ -59,7 +59,7 @@ dialog {
   position: relative;
   min-width: 300px;
   min-height: 200px;
-  max-width: 500px;
+  max-width: 460px;
   flex-direction: column;
   justify-content: center;
 
@@ -97,10 +97,11 @@ dialog::backdrop {
 }
 
 .giffy {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: block;
   margin-bottom: 1em;
+  margin-inline: auto;
 }
 
 #form-name,

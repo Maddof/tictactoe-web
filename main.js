@@ -168,7 +168,7 @@ const controls = (function () {
   resetGameBtn.addEventListener("click", () => {
     winnerMsgPara.textContent = "Options";
     errorMsgPara.textContent = "";
-    resetGameBtn.textContent = "Reset";
+    resetGameBtn.textContent = "Reset board";
     winnerImg.innerHTML = ``;
     buttons.forEach((button) => {
       button.classList.remove("puff-in-center");
