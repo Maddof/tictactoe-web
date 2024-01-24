@@ -4,8 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe Web</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Tic Tac Toe Game</h1>
+    <section>
+      <h1>Tic Tac Toe Game</h1>
+      <div class="wrapper">
+        <p class="description">
+          <em>In this game we play against a very stupid ai.</em><br /><br />
+          You can change your name if you click the options button down below.
+        </p>
+        <p id="playername-title">Your name: Player</p>
+        <p>Your marker: X</p>
+        <p id="error-msg"></p>
+        <div class="game-wrapper">
+          <button class="cell"></button>
+          <button class="cell horizontal-border"></button>
+          <button class="cell"></button>
+          <button class="cell vertical-border"></button>
+          <button class="cell horizontal-border vertical-border"></button>
+          <button class="cell vertical-border"></button>
+          <button class="cell"></button>
+          <button class="cell horizontal-border"></button>
+          <button class="cell"></button>
+        </div>
+      </div>
+      <dialog>
+        <button id="close-modal-btn">X</button>
+        <p id="winner-msg">Options</p>
+        <div id="winner-img-wrapper">
+          <p></p>
+        </div>
+        <!-- <img src="gifs/win.gif" alt="winner" class="giffy" /> -->
+        <button autofocus id="reset-game-btn">Reset</button>
+        <form id="form-name">
+          <label for="playername">Your name:</label>
+          <input type="text" name="playername" id="playername" />
+          <input type="submit" id="submit-name" />
+        </form>
+      </dialog>
+      <button id="reset-btn" autofocus>Options</button>
+    </section>
+
+    <script src="main.js"></script>
   </body>
 </html>
