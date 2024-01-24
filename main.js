@@ -225,6 +225,7 @@ function computerPlays() {
 
   // If boolean is true, computer wont play and we skip.
   if (!currentStatus) {
+    // If player has set AI diff to hard we do some extra checking
     if (players.getAiDiff() == "hard") {
       let winningMove = findWinningMove(players.getCompMarker());
       if (winningMove) {
@@ -260,6 +261,9 @@ function computerPlays() {
     console.log("Computer skipped");
   }
 }
+
+// Helper function for finding a winning move or a
+// blocking move
 
 function findWinningMove(marker) {
   let board = game.getBoard();
