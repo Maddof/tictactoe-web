@@ -11,11 +11,13 @@
       <h1>Tic Tac Toe Game</h1>
       <div class="wrapper">
         <p class="description">
-          <em>In this game we play against a very stupid ai.</em><br /><br />
-          You can change your name if you click the options button down below.
+          <em>In this game we play against the ai.</em><br /><br />
+          You can change your name and ai difficulty if you click the options
+          button down below.
         </p>
         <p id="playername-title">Your name: Player</p>
         <p>Your marker: X</p>
+        <p id="ai-diff-desc">Ai difficulty: easy</p>
         <p id="error-msg"></p>
         <div class="game-wrapper">
           <button class="cell"></button>
@@ -41,6 +43,14 @@
           <label for="playername">Your name:</label>
           <input type="text" name="playername" id="playername" />
           <input type="submit" id="submit-name" />
+        </form>
+        <form id="form-ai">
+          <label for="ai-diff-select">AI difficulty:</label>
+          <select name="ai-diff-select" id="ai-diff-select">
+            <option value="easy">Easy</option>
+            <option value="hard">Hard</option>
+          </select>
+          <input type="submit" id="submit-ai-diff" />
         </form>
       </dialog>
       <button id="reset-btn" autofocus>Options</button>

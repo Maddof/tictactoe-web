@@ -65,21 +65,31 @@ const players = (function (pName = "Player") {
     {
       name: "Comp",
       marker: "O",
+      aidiff: "easy",
     },
   ];
   const setPlayerName = (pName) => {
     return (players[0].name = pName);
   };
+
+  const setAiDiff = (setdiff) => {
+    return (players[1].aidiff = setdiff);
+  };
+
   const getPlayerName = () => players[0].name;
   const getCompName = () => players[1].name;
   const getPlayerMarker = () => players[0].marker;
   const getCompMarker = () => players[1].marker;
+  const getAiDiff = () => players[1].aidiff;
+
   return {
     setPlayerName,
     getPlayerName,
     getCompName,
     getPlayerMarker,
     getCompMarker,
+    setAiDiff,
+    getAiDiff,
   };
 })();
 
@@ -104,6 +114,18 @@ const controls = (function () {
   const form = document.getElementById("form-name");
   const formInput = document.getElementById("playername");
   const playerNameTitle = document.getElementById("playername-title");
+  const aiDiffDesc = document.getElementById("ai-diff-desc");
+  const formAi = document.getElementById("form-ai");
+  const formAiSelect = document.getElementById("ai-diff-select");
+
+  formAi.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log(formAiSelect.value);
+    players.setAiDiff(formAiSelect.value);
+    aiDiffDesc.textContent = `
+      Ai difficulty: ${players.getAiDiff()}
+    `;
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -203,6 +225,27 @@ function computerPlays() {
 
   // If boolean is true, computer wont play and we skip.
   if (!currentStatus) {
+    if (players.getAiDiff() == "hard") {
+      let winningMove = findWinningMove(players.getCompMarker());
+      if (winningMove) {
+        game.updateBoard(
+          winningMove.row,
+          winningMove.col,
+          players.getCompMarker()
+        );
+        return;
+      } else {
+        let blockingMove = findWinningMove(players.getPlayerMarker());
+        if (blockingMove) {
+          game.updateBoard(
+            blockingMove.row,
+            blockingMove.col,
+            players.getCompMarker()
+          );
+          return;
+        }
+      }
+    }
     // Basically we are testing the roundchecker function
     // multiple times until we get a true (which we flip to false to stop)
     // Then we know computer is allowed to play
@@ -216,6 +259,82 @@ function computerPlays() {
   } else {
     console.log("Computer skipped");
   }
+}
+
+function findWinningMove(marker) {
+  let board = game.getBoard();
+
+  // Check rows and columns for a winning move
+  for (let i = 0; i < game.getBoardLength(); i++) {
+    // Check rows
+    if (
+      board[i][0] === marker &&
+      board[i][1] === marker &&
+      board[i][2] === ""
+    ) {
+      return { row: i, col: 2 };
+    }
+    if (
+      board[i][0] === marker &&
+      board[i][2] === marker &&
+      board[i][1] === ""
+    ) {
+      return { row: i, col: 1 };
+    }
+    if (
+      board[i][1] === marker &&
+      board[i][2] === marker &&
+      board[i][0] === ""
+    ) {
+      return { row: i, col: 0 };
+    }
+
+    // Check columns
+    if (
+      board[0][i] === marker &&
+      board[1][i] === marker &&
+      board[2][i] === ""
+    ) {
+      return { row: 2, col: i };
+    }
+    if (
+      board[0][i] === marker &&
+      board[2][i] === marker &&
+      board[1][i] === ""
+    ) {
+      return { row: 1, col: i };
+    }
+    if (
+      board[1][i] === marker &&
+      board[2][i] === marker &&
+      board[0][i] === ""
+    ) {
+      return { row: 0, col: i };
+    }
+  }
+
+  // Check diagonals for a winning move
+  if (board[0][0] === marker && board[1][1] === marker && board[2][2] === "") {
+    return { row: 2, col: 2 };
+  }
+  if (board[0][0] === marker && board[2][2] === marker && board[1][1] === "") {
+    return { row: 1, col: 1 };
+  }
+  if (board[1][1] === marker && board[2][2] === marker && board[0][0] === "") {
+    return { row: 0, col: 0 };
+  }
+
+  if (board[0][2] === marker && board[1][1] === marker && board[2][0] === "") {
+    return { row: 2, col: 0 };
+  }
+  if (board[0][2] === marker && board[2][0] === marker && board[1][1] === "") {
+    return { row: 1, col: 1 };
+  }
+  if (board[1][1] === marker && board[2][0] === marker && board[0][2] === "") {
+    return { row: 0, col: 2 };
+  }
+
+  return null;
 }
 
 function roundChecker(r, c) {
