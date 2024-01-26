@@ -39,10 +39,14 @@ const game = (function () {
 
   const renderBoard = () => {
     const buttons = controls.buttons;
+    console.log(buttons);
     for (let i = 0; i < buttons.length; i++) {
       const row = Math.floor(i / 3);
       const col = i % 3;
       buttons[i].textContent = board[row][col];
+      if (buttons[i].textContent == "O") {
+        buttons[i].classList.add("fade-in-comp");
+      }
     }
   };
 
@@ -99,7 +103,7 @@ const controls = (function () {
     button.addEventListener("click", () => {
       const row = Math.floor(i / 3);
       const col = i % 3;
-      button.classList.add("puff-in-center");
+      button.classList.add("center-anime");
       playRound(row, col);
     });
   });
@@ -115,16 +119,22 @@ const controls = (function () {
   const formInput = document.getElementById("playername");
   const playerNameTitle = document.getElementById("playername-title");
   const aiDiffDesc = document.getElementById("ai-diff-desc");
-  const formAi = document.getElementById("form-ai");
-  const formAiSelect = document.getElementById("ai-diff-select");
+  const buttonsAiWrapper = document.querySelector(".ai-wrapper__buttons");
+  const msgMode = document.querySelectorAll(".mode-msg");
 
-  formAi.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log(formAiSelect.value);
-    players.setAiDiff(formAiSelect.value);
-    aiDiffDesc.textContent = `
-      Ai difficulty: ${players.getAiDiff()}
-    `;
+  buttonsAiWrapper.addEventListener("click", (e) => {
+    if (e.target.value === "easy" || e.target.value === "hard") {
+      players.setAiDiff(e.target.value);
+      aiDiffDesc.textContent = `Ai difficulty: ${players.getAiDiff()}`;
+      if (e.target.value === "easy") {
+        msgMode[0].style.display = "block";
+        msgMode[1].style.display = "none";
+      }
+      if (e.target.value === "hard") {
+        msgMode[1].style.display = "block";
+        msgMode[0].style.display = "none";
+      }
+    }
   });
 
   form.addEventListener("submit", (e) => {
@@ -165,20 +175,24 @@ const controls = (function () {
     dialog.close();
   });
 
+  const resetButtons = () =>
+    buttons.forEach((button) => {
+      button.classList.remove("center-anime");
+      button.classList.remove("fade-in-comp");
+    });
+
   resetGameBtn.addEventListener("click", () => {
     winnerMsgPara.textContent = "Options";
     errorMsgPara.textContent = "";
     resetGameBtn.textContent = "Reset board";
     winnerImg.innerHTML = ``;
-    buttons.forEach((button) => {
-      button.classList.remove("puff-in-center");
-    });
+    resetButtons();
     game.createBoard();
     game.renderBoard();
     dialog.close();
   });
 
-  return { buttons, showDialog, displayWinner, errorMsgPara };
+  return { buttons, showDialog, displayWinner, errorMsgPara, resetButtons };
 })();
 
 function playRound(r, c) {
@@ -189,6 +203,7 @@ function playRound(r, c) {
     controls.displayWinner("DRAW!");
     game.renderBoard();
     game.createBoard();
+    controls.resetButtons();
     controls.showDialog();
     // We return nothing to finish code execution and not check
     // anything else or play other rounds.
@@ -200,6 +215,7 @@ function playRound(r, c) {
     controls.displayWinner("You are the champ!", winnerName);
     game.renderBoard();
     game.createBoard();
+    controls.resetButtons();
     controls.showDialog();
     return;
   } else {
@@ -211,6 +227,7 @@ function playRound(r, c) {
       controls.displayWinner("Dammit!", winnerName);
       game.renderBoard();
       game.createBoard();
+      controls.resetButtons();
       controls.showDialog();
       return;
     } else {

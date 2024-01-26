@@ -33,7 +33,7 @@
       </div>
       <dialog>
         <button id="close-modal-btn">X</button>
-        <p id="winner-msg">Options</p>
+        <h2 id="winner-msg">Options</h2>
         <div id="winner-img-wrapper">
           <p></p>
         </div>
@@ -44,14 +44,17 @@
           <input type="text" name="playername" id="playername" />
           <input type="submit" id="submit-name" />
         </form>
-        <form id="form-ai">
-          <label for="ai-diff-select">AI difficulty:</label>
-          <select name="ai-diff-select" id="ai-diff-select">
-            <option value="easy">Easy</option>
-            <option value="hard">Hard</option>
-          </select>
-          <input type="submit" id="submit-ai-diff" />
-        </form>
+        <div class="ai-wrapper">
+          <h2>Change AI difficulty</h2>
+          <div class="ai-wrapper__buttons">
+            <button value="easy" class="btn-ai">Easy</button>
+            <button value="hard" class="btn-ai">Hard</button>
+          </div>
+          <div class="ai-wrapper__msg-wrapper">
+            <p id="easy-mode" class="mode-msg">Easy mode activated</p>
+            <p id="hard-mode" class="mode-msg">Hard mode activated</p>
+          </div>
+        </div>
       </dialog>
       <button id="reset-btn" autofocus>Options</button>
     </section>
