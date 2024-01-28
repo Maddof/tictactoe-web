@@ -30,7 +30,7 @@ Oh boy was I wrong. I didnt realize until later that this wasn't required but on
 
 Initially my AI was very stupid and was just making random moves on the board. I did most of the AI logic using a `do... while` loop. But as I played the game I realized it was superboring without a challenge. So I embarked on coding a "hard" version of the game. I struggled alot here trying to figure it out. I reverted to using free AI tools to help me out here (the irony). The solution was to loop the board and manually check every row and column on the board before the computer play. The loop checks for any winning move first the computer can play, then it checks for any blocking moves it can play. If it finds either, it then plays a random move using my do while loop.
 
-I had during my research stumbled upon other solutions that was alot cleaner, but I was already commited to my AI logic from the console version and a bit into the browser version. Unfortnately my AI logic code is probably not very maintainable due to the sheer length of it.
+I had during my research stumbled upon other solutions that was alot cleaner, but I was already commited to my AI logic from the console version and a bit into the browser version. Unfortunately my AI logic code is probably not very maintainable due to the sheer length of it.
 
 ## Bugs
 
@@ -38,6 +38,6 @@ There is potentially a bug related to the checkWinner function I have not been a
 
 ## Potential improvements
 
-Instead of only playing vs AI, one could add functionality for also playing vs human, 1vs1.
+Instead of only playing vs AI, one could add functionality for also playing vs human, player vs player mode.
 
 **Style of the game:** This game is usually played with pen and paper. I could maybe return and change the styling and animations to resemble pen and paper to give it a more nostalgic feel.
